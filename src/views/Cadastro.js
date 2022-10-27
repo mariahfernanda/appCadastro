@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Text, View, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native'
 import COLORS from '../const/Colors'
 import { Input } from '../components/Input'
@@ -6,9 +6,20 @@ import { InputNumber } from '../components/InputNumber'
 import { Button } from '../components/Button'
 import hospital from '../assets/hospital.png'
 
+
 export const Cadastro = () => {
     
-    const [inputs, setIputs] = React.useState({
+   
+// constructor(props){
+//     super(props)
+//     this.state = {
+//         pacientes: []
+//     }
+// }
+// aaaaaaaaaaa não funcionaaaaaaaaa
+// componentDidMount()
+
+    const [inputs, setInputs] = React.useState({
         nome: '',
         telefone: '',
         celular: '',
@@ -49,7 +60,7 @@ export const Cadastro = () => {
           handlerErrors('Informe o seu Email.', 'email');
         }
         if(validate){
-            console.log('cadastrou ai sim')      
+            console.log('cadastrou')      
         }      
         console.log(errors);      
     }
@@ -59,7 +70,7 @@ export const Cadastro = () => {
 
             <View style={styles.containerText}>
             
-                <Text style={styles.textTitle}>HOSPITAL CURAMED</Text>
+                <Text style={styles.textTitle}>HOSPITAL CURAMED </Text>
                 <Image source={hospital} style={styles.image}/>
             </View>
             
