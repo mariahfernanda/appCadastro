@@ -5,27 +5,17 @@ import { Input } from '../components/Input'
 import { InputNumber } from '../components/InputNumber'
 import { Button } from '../components/Button'
 import hospital from '../assets/hospital.png'
-
+import Api, { api } from '../services/Api'
 
 export const Cadastro = () => {
-    
-   
-// constructor(props){
-//     super(props)
-//     this.state = {
-//         pacientes: []
-//     }
-// }
-// aaaaaaaaaaa não funcionaaaaaaaaa
-// componentDidMount()
 
     const [inputs, setInputs] = React.useState({
-        nome: '',
-        telefone: '',
-        celular: '',
-        email: '',
-        nomeresposavel: '',
-        telefoneresponsavel: '',
+        nome_paciente: '',
+        telefone_paciente: '',
+        celular_paciente: '',
+        email_paciente: '',
+        nome_resposavel: '',
+        telefone_responsavel: '',
     });
 
     const handlerOnChange = (text, input) => {
@@ -43,19 +33,19 @@ export const Cadastro = () => {
     const validate = () =>{   
         let validate = true;
     
-        if (!inputs.nome) {
+        if (!inputs.nome_paciente) {
           validate = false;
           handlerErrors('Informe o seu Nome.', 'nome');        
         }
-        if (!inputs.telefone) {
+        if (!inputs.telefone_paciente) {
           validate = false;
           handlerErrors('Informe o seu Telefone.', 'telefone');
         }
-        if (!inputs.celular) {
+        if (!inputs.celular_paciente) {
           validate = false;
           handlerErrors('Informe o seu Celular.', 'celular');
         }
-        if (!inputs.email) {
+        if (!inputs.email_paciente) {
           validate = false;
           handlerErrors('Informe o seu Email.', 'email');
         }
@@ -63,6 +53,20 @@ export const Cadastro = () => {
             console.log('cadastrou')      
         }      
         console.log(errors);      
+    }
+
+    const Cadastrar = () => {
+        try{
+            const Response= api.post('cadastrarPaciente',
+            { nome_paciente: inputs.nome_paciente,
+              telefone_paciente: inputs.telefone_paciente,
+              celular_paciente: inputs.celular_paciente,
+              email_paciente: inputs.email_paciente,
+              nome_resposavel: inputs.nome_resposavel,
+              telefone_responsavel: inputs.telefone_responsavel
+            }
+            );
+        }catch(error){}
     }
 
     return(
@@ -76,12 +80,12 @@ export const Cadastro = () => {
             
             <ScrollView style={styles.scroll}>
                 <View style={styles.viewForm}>
-                    <Input  label="Nome" error={errors.nome}     onFocus={()=>(handlerErrors(null, 'nome'))}    onChangeText={ (text) => handlerOnChange(text, 'nome' )  }/>
+                    <Input  label="Nome" error={errors.nome}  onFocus={()=>(handlerErrors(null, 'nome_paciente'))}    onChangeText={ (text) => handlerOnChange(text, 'nome_paciente' )  }/>
                     <View style={styles.numbers}>
-                    <InputNumber  label="Telefone" error={errors.telefone}     onFocus={()=>(handlerErrors(null, 'telefone'))}    onChangeText={ (text) => handlerOnChange(text, 'telefone' )  }/>
-                    <InputNumber  label="Celular" error={errors.celular}     onFocus={()=>(handlerErrors(null, 'celular'))}    onChangeText={ (text) => handlerOnChange(text, 'celular' )     }/>
+                    <InputNumber  label="Telefone" error={errors.telefone}     onFocus={()=>(handlerErrors(null, 'telefone_paciente'))}    onChangeText={ (text) => handlerOnChange(text, 'telefone_paciente' )  }/>
+                    <InputNumber  label="Celular" error={errors.celular}     onFocus={()=>(handlerErrors(null, 'celular_paciente'))}    onChangeText={ (text) => handlerOnChange(text, 'celular_paciente' )     }/>
                     </View>
-                    <Input  label="Email" error={errors.email}     onFocus={()=>(handlerErrors(null, 'email'))}    onChangeText={ (text) => handlerOnChange(text, 'email' )     }/>
+                    <Input  label="Email" error={errors.email} onFocus={()=>(handlerErrors(null, 'email_paciente'))}    onChangeText={ (text) => handlerOnChange(text, 'email_paciente' )     }/>
                     <Input  label="Nome Responsável"/>
                     <Input label="Telefone Responsável"/>
                     <Button title="CADASTRAR"  onPress={validate} />
